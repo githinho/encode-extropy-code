@@ -1,5 +1,3 @@
-// I AM NOT DONE
-
 pragma solidity ^0.8.4;
 contract Add {
     function addAssembly(uint x, uint y) public pure returns (uint) {        
@@ -24,5 +22,3 @@ contract Add {
         return x + y;
     }
 }
-
-
