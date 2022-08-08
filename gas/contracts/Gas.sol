@@ -3,17 +3,11 @@ pragma solidity 0.8.0;
 
 import "./Ownable.sol";
 
-contract Constants {
-    uint256 public tradeFlag = 1;
-    uint256 public basicFlag = 0;
-    uint256 public dividendFlag = 1;
-}
-
-contract GasContract is Ownable, Constants {
+contract GasContract is Ownable {
     uint256 public immutable totalSupply; // cannot be updated
     uint256 public paymentCounter = 0;
     mapping(address => uint256) public balances;
-    uint256 public tradePercent = 12;
+    // uint256 public constant tradePercent = 12;
     address public contractOwner;
     mapping(address => Payment[]) public payments;
     mapping(address => uint256) public whitelist;
@@ -33,11 +27,11 @@ contract GasContract is Ownable, Constants {
     struct Payment {
         PaymentType paymentType;
         uint256 paymentID;
-        bool adminUpdated;
+        uint256 amount;
         string recipientName; // max 8 characters
         address recipient;
         address admin; // administrators address
-        uint256 amount;
+        bool adminUpdated;
     }
 
     // struct History {
@@ -50,8 +44,8 @@ contract GasContract is Ownable, Constants {
     mapping(address => uint256) public isOddWhitelistUser;
     struct ImportantStruct {
         uint256 valueA; // max 3 digits
-        uint256 bigValue;
         uint256 valueB; // max 3 digits
+        uint256 bigValue;
     }
 
     mapping(address => ImportantStruct) public whiteListStruct;
@@ -203,11 +197,12 @@ contract GasContract is Ownable, Constants {
         payment.recipientName = _name;
         payment.paymentID = ++paymentCounter;
         payments[senderOfTx].push(payment);
-        bool[] memory status = new bool[](tradePercent);
-        for (uint256 i = 0; i < tradePercent; i++) {
-            status[i] = true;
-        }
-        return (status[0] == true);
+        // bool[] memory status = new bool[](tradePercent);
+        // for (uint256 i = 0; i < tradePercent; i++) {
+        //     status[i] = true;
+        // }
+        // return (status[0] == true);
+        return true;
     }
 
     function updatePayment(
