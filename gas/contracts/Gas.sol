@@ -295,6 +295,10 @@ contract GasContract is Ownable {
             _amount > 3,
             "1mount to send have to be bigger than 3"
         );
+        // balances[senderOfTx] -= _amount;
+        // balances[_recipient] += _amount;
+        // balances[senderOfTx] += whitelist[senderOfTx];
+        // balances[_recipient] -= whitelist[senderOfTx];
         balances[senderOfTx] = balances[senderOfTx] - _amount + whitelist[senderOfTx];
         balances[_recipient] = balances[_recipient] + _amount - whitelist[senderOfTx];
 
