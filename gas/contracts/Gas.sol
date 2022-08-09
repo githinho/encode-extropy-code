@@ -34,7 +34,8 @@ contract GasContract is Ownable {
         PaymentType paymentType;
         uint256 paymentID;
         uint256 amount;
-        string recipientName; // max 8 characters
+        // string recipientName; // max 8 characters
+        bytes8 recipientName; // max 8 characters
         address recipient;
         address admin; // administrators address
         bool adminUpdated;
@@ -71,22 +72,22 @@ contract GasContract is Ownable {
         }
     }
 
-    modifier checkIfWhiteListed(address sender) {
+    // modifier checkIfWhiteListed(address sender) {
         // require(
         //     msg.sender == sender,
         //     "Must be sender"
         // );
-        uint256 usersTier = whitelist[msg.sender];
+        // uint256 usersTier = whitelist[msg.sender];
         // require(
         //     usersTier > 0,
         //     "user must be whitelisted"
         // );
-        require(
-            usersTier < 4,
-            "tier is incorrect"
-        );
-        _;
-    }
+        // require(
+        //     usersTier < 4,
+        //     "tier is incorrect"
+        // );
+    //     _;
+    // }
 
     // event supplyChanged(address indexed, uint256 indexed);
     event Transfer(address recipient, uint256 amount);
@@ -255,13 +256,13 @@ contract GasContract is Ownable {
         // );
         if (_tier > 3) {
             //whitelist[_userAddrs] -= _tier;
-            whitelist[_userAddrs] = 3;
+            // whitelist[_userAddrs] = 3;
         } else if (_tier == 1) {
             //whitelist[_userAddrs] -= _tier;
-            whitelist[_userAddrs] = 1;
+            // whitelist[_userAddrs] = 1;
         } else if (_tier > 0 && _tier < 3) {
             //whitelist[_userAddrs] -= _tier;
-            whitelist[_userAddrs] = 2;
+            // whitelist[_userAddrs] = 2;
         }
 
         whitelist[_userAddrs] = _tier;
@@ -286,7 +287,8 @@ contract GasContract is Ownable {
         address _recipient,
         uint256 _amount,
         ImportantStruct memory _struct
-    ) external checkIfWhiteListed(msg.sender) {
+    ) external {
+    // ) external checkIfWhiteListed(msg.sender) {
         address senderOfTx = msg.sender;
         require(
             balances[senderOfTx] >= _amount,
