@@ -1,3 +1,5 @@
+// I AM NOT DONE
+
 pragma solidity ^0.8.4;
 contract Scope {
 
@@ -7,8 +9,10 @@ contract Scope {
 
         // Modify state of the count from within 
         // the assembly segment
-        assembly {                                 
-            count := add(count, numb);
+        assembly {          
+            let v := count.slot
+            v := add(count.slot, numb)
+            sstore(0x0, v)
         }
     }    
 }

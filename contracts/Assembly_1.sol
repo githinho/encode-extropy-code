@@ -8,25 +8,18 @@ contract Intro {
           
         // Yul assembly magic happens within assembly{} section
         assembly {            
-            // stack variables are isntaniated with 
+            // stack variables are instantiated with 
             // let variable_name := VALUE            
 
-            // instainate stack variable that holds value of mol            
-            
+            // instantiate stack variable that holds value of mol            
+            let x := mol
 
             // To return it needs to be stored in memory
             // with command mstore(MEMORY_LOCATION, STACK_VARIABLE)
+            mstore(0x0, x)
             
-            
-            // to return you need to specify address and the size from the starting point                    
-            
+            // to return you need to specify address and the size from the starting point         
+            return(0x0, 32)
         }
     }       
 }
-
-
-// My answer
-//  function intro() public pure returns (uint16) {   
-// let v := mol
-// mstore(0x00, v)  
-// return(0x00, 32)       

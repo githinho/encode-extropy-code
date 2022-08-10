@@ -1,3 +1,5 @@
+// I AM NOT DONE
+
 pragma solidity ^0.8.4;
 contract Intro {
     function intro() public pure returns (uint16) {   
@@ -10,14 +12,14 @@ contract Intro {
             // let variable_name := VALUE            
 
             // instantiate stack variable that holds value of mol            
-            let x := mol;
+            let x := mol
 
             // To return it needs to be stored in memory
             // with command mstore(MEMORY_LOCATION, STACK_VARIABLE)
-            mstore(0x0, x);
+            mstore(0x0, x)
             
             // to return you need to specify address and the size from the starting point         
-            return(0x0, 32);
+            return(0x0, 32)
         }
     }       
 }

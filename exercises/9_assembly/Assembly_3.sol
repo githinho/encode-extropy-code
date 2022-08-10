@@ -1,3 +1,5 @@
+// I AM NOT DONE
+
 pragma solidity ^0.8.4;
 contract SubOverflow {
 
@@ -6,12 +8,12 @@ contract SubOverflow {
 
         // Write assembly code that handles overflows        
         assembly {
-            let result := 0;
+            let result := 0
             if gt(x, y) {
-                result := sub(x, y);
+                result := sub(x, y)
             }
-            mstore(0x0, result);
-            return(0x0, 32);
+            mstore(0x0, result)
+            return(0x0, 32)
         }
     }    
 }
