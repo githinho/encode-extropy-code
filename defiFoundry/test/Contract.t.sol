@@ -22,14 +22,14 @@ contract ContractTest is Test {
 
     function setUp() public {
         defi = new DeFi1(initialAmount, blockReward);
-        token = Token(defi.token.address);
+        token = defi.token();
         alice = new User();
         bob = new User();
         chloe = new User();
     }
 
     function testInitialBalance() public {
-        
+        assert(token.totalSupply() == initialAmount);
     }
 
     function testAddInvestor() public {
@@ -47,15 +47,31 @@ contract ContractTest is Test {
 
 
     function testCorrectPayoutAmount() public {
-
+        vm.startPrank(address(alice));
+        defi.addInvestor(address(alice));
+        vm.roll(100);
+        defi.claimTokens();
+        uint256 aliceTokens = token.balanceOf(address(alice));
+        assert(aliceTokens == 0);
     }
 
-    function testAddingManyInvestors() public {
-
+    function testAddingManyInvestors(uint16 investors) public {
+        for (uint160 i = 1; i <= investors; i++) {
+            defi.addInvestor(address(i));
+        }
+        assert(defi.getInvestorsCount() == investors);
     }
 
-    function testAddingManyInvestorsAndClaiming() public {
-
+    function testAddingManyInvestorsAndClaiming(uint8 max) public {
+        for (uint160 i = 1; i <= max; i++) {
+            address adr = address(i);
+            defi.addInvestor(adr);
+            vm.roll(i * 2);
+            vm.prank(adr);
+            defi.claimTokens();
+            assert(token.balanceOf(adr) == 0);
+        }
+        assert(defi.getInvestorsCount() == max);
     }
 
 }
