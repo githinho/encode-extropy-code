@@ -45,7 +45,6 @@ contract ContractTest is Test {
         defi.claimTokens();
     }
 
-
     function testCorrectPayoutAmount() public {
         vm.startPrank(address(alice));
         defi.addInvestor(address(alice));
@@ -72,6 +71,16 @@ contract ContractTest is Test {
             assert(token.balanceOf(adr) == 0);
         }
         assert(defi.getInvestorsCount() == max);
+    }
+
+    function testEveryBlock(uint256 blockNumber) public {
+        blockNumber = bound(blockNumber, 1, 1011);
+        vm.startPrank(address(alice));
+        defi.addInvestor(address(alice));
+        vm.roll(blockNumber);
+        defi.claimTokens();
+        uint256 aliceTokens = token.balanceOf(address(alice));
+        assert(aliceTokens == 0);
     }
 
 }
