@@ -30,6 +30,7 @@ contract ContractTest is Test {
 
     function testInitialBalance() public {
         assert(token.totalSupply() == initialAmount);
+        assert(token.balanceOf(address(defi)) == initialAmount);
     }
 
     function testAddInvestor() public {
